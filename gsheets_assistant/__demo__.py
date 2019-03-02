@@ -8,9 +8,9 @@ from gsheets_assistant.cell import Cell
 from gsheets_assistant.utils import col_to_letters, get_range
 from gsheets_assistant.pages.sample import page_sample
 
-def main(spreadsheet=None):
+def main(secret_file=None, oauth_client_id=False, spreadsheet=None):
     # -- Get the relevant doc -- #
-    creds = Credentials().get()
+    creds = Credentials(oauth_client_id, secret_file).get()
     http = creds.authorize(httplib2.Http())
     sheet = Spreadsheet(http, spreadsheet)
 
@@ -31,5 +31,7 @@ def main(spreadsheet=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--spreadsheet', type=str, help='Spreadsheet ID', required=True)
+    parser.add_argument('--oauth-client-id', type=str, help='Name of oauth client ID', required=True)
+    parser.add_argument('--secret-file', type=str, help='Path to secret file', required=True)
     args = parser.parse_args()
     main(**vars(args))

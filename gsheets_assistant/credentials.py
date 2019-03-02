@@ -11,10 +11,8 @@ from oauth2client.file import Storage
 # List of scopes:
 #   https://developers.google.com/identity/protocols/googlescopes
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-#SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
-CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-CREDS_FILE = 'sheets.googleapis.com-gsheets_assistant.json'
+CREDS_FILE = 'sheets.googleapis.com-python-quickstart.json'
 
 
 class Credentials(object):
@@ -23,7 +21,7 @@ class Credentials(object):
     store = None
     creds = None
 
-    def __init__(self):
+    def __init__(self, oauth_client_id, secret_file):
         # Set local cred path
         home_dir = os.path.expanduser('~')
         credential_dir = os.path.join(home_dir, '.credentials')
@@ -31,12 +29,14 @@ class Credentials(object):
             os.makedirs(credential_dir)
         self.local_path = os.path.join(credential_dir, CREDS_FILE)
         self.store = Storage(self.local_path)
+        self.oauth_client_id = oauth_client_id
+        self.secret_file = secret_file
 
 
     def setup_local_storage(self):
         """Initialize stored credentials."""
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
+        flow = client.flow_from_clientsecrets(self.secret_file, SCOPES)
+        flow.user_agent = self.oauth_client_id #APPLICATION_NAME
 
         # Original example supports Python 2.6 here, but I've dropped that as unnecessary.
         # Drop the 'noauth_local_webserver' to make this open a confirmation page in your web browser,
