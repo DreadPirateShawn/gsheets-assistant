@@ -11,12 +11,7 @@ setup(
     packages=[
         'gsheets_assistant',
     ],
-    setup_requires=[
-        'pytest-runner'
-    ],
-    tests_require=[
-        'pytest>=3.0.0'
-    ],
+    test_suite="tests",
     install_requires=[
         'google-api-python-client',
         'google-auth-httplib2',
