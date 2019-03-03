@@ -1,16 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
+
+def read_version():
+    return open('VERSION').read().strip()
 
 setup(
     name='gsheets-assistant',
-    version='0.1',
+    version=read_version(),
     description='GSheets API assistant, with formatter and cell navigation tools',
     url='https://github.com/dreadpirateshawn/gsheets-assistant',
     author='Shawn Falkner-Horine',
     author_email='dreadpirateshawn@gmail.com',
     license='MIT',
-    packages=[
-        'gsheets_assistant',
-    ],
+    packages=find_packages(exclude=["tests"]),
     test_suite="tests",
     install_requires=[
         'google-api-python-client',
@@ -18,8 +19,5 @@ setup(
         'google-auth-oauthlib',
         'oauth2client',
     ],
-    entry_points={'console_scripts': [
-        'gsheets-assistant-demo = gsheets_assistant.__demo__:main',
-    ]},
     zip_safe=False,
 )

@@ -31,7 +31,7 @@ class Spreadsheet(Api):
     def add_tabs(self, tab_names, rows=100, cols=50):
         for tab_name in tab_names:
             if tab_name in self.tabs_lookup:
-                print "== WARNING: Tab '%s' already exists ==" % tab_name
+                print("== WARNING: Tab '%s' already exists ==" % tab_name)
                 continue
 
             self.add_action('addSheet', {
@@ -56,7 +56,7 @@ class Spreadsheet(Api):
     def delete_tabs(self, tab_names):
         for tab_name in tab_names:
             if tab_name not in self.tabs_lookup:
-                print "== WARNING: Tab '%s' does not exist ==" % tab_name
+                print("== WARNING: Tab '%s' does not exist ==" % tab_name)
                 continue
 
             self.add_action('deleteSheet', {
@@ -72,7 +72,7 @@ class Spreadsheet(Api):
 
         # Note: tab_id can be 0 for initial tab, so compare to None explicitly.
         if tab_id == None:
-            print "== WARNING: Tab '%s' does not exist ==" % tab_name
+            print("== WARNING: Tab '%s' does not exist ==" % tab_name)
             return None
 
         return SpreadsheetTab(self.http, self.spreadsheet_id, tab_name, tab_id)

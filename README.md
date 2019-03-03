@@ -35,3 +35,28 @@ docker build . --file Dockerfile --tag gsheets-assistant --target gsheets-assist
 docker build . --file Dockerfile --tag gsheets-assistant --target gsheets-assistant-package
 docker run --rm --entrypoint=/bin/tar gsheets-assistant -c -C /gsheets-assistant/dist . | tar x
 ```
+
+### Using a virtual env
+Using a virtualenv to run the tool is recommended, but of course you do you. If you're unfamiliar, here's how to use a virtualenv in Python 3.3+. The `...` below is where you'll type all the install and runtime things that you want to keep isolated from your larger system, at the `(venv)` prompt.
+
+#####  1. Create a venv folder in the project
+```
+python -m venv venv
+```
+
+##### 2. Enter the venv
+```
+source venv/bin/activate
+(venv) $ ...
+```
+
+##### 3. Exit the venv
+```
+(venv) $ deactivate
+```
+
+### Running the tool (inside a virtual env is recommended)
+##### 1. Install
+```
+pip install gsheets_assistant-$(cat VERSION)-py3-none-any.whl
+```

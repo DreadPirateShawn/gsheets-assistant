@@ -1,8 +1,8 @@
 FROM ubuntu:18.04 AS gsheets-assistant-baseline
 
 RUN apt-get update -qq \
-    && DEBIAN_FRONTEND=noninteractive apt-get -q install -y python-pip \
-    && pip install --upgrade pip \
+    && DEBIAN_FRONTEND=noninteractive apt-get -q install -y python3 python3-pip \
+    && pip3 install --upgrade pip setuptools wheel \
     && apt-get autoremove -q -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -10,10 +10,10 @@ RUN apt-get update -qq \
 ENV WORKSPACE /gsheets-assistant
 WORKDIR $WORKSPACE
 ADD . $WORKSPACE
-ENV PYTHONPATH $WORKSPACE:/usr/local/lib/python2.7/dist-packages:${PYTHONPATH}
+#ENV PYTHONPATH $WORKSPACE:/usr/local/lib/python2.7/dist-packages:${PYTHONPATH}
 ENV PYTHONUNBUFFERED 1
 
-ENTRYPOINT ["/usr/bin/python", "/gsheets-assistant/entrypoint.py"]
+ENTRYPOINT ["/usr/bin/python3", "/gsheets-assistant/entrypoint.py"]
 CMD ["--help"]
 
 
@@ -22,7 +22,7 @@ CMD ["--help"]
 
 FROM gsheets-assistant-baseline AS gsheets-assistant-tests
 
-RUN /usr/bin/python -m unittest discover --start-directory=tests
+RUN /usr/bin/python3 -m unittest discover --start-directory=tests
 
 
 ###############
@@ -30,5 +30,4 @@ RUN /usr/bin/python -m unittest discover --start-directory=tests
 
 FROM gsheets-assistant-tests AS gsheets-assistant-package
 
-RUN /usr/bin/python setup.py test bdist_egg
-#RUN /usr/bin/python setup.py bdist_egg
+RUN /usr/bin/python3 setup.py test bdist_wheel

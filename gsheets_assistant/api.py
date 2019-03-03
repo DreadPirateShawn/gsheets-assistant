@@ -47,7 +47,7 @@ class Api(object):
 
     def _flush_actions(self):
         if self.queue_actions:
-            print "== Execute: %s" % [action.keys()[0] for action in self.queue_actions]
+            print("== Execute: %s" % [action.keys()[0] for action in self.queue_actions])
 
             data = {'requests': self.queue_actions}
 
@@ -65,7 +65,7 @@ class Api(object):
             #   {'data': [{'range': 'r1714 replicas!S2:U2', 'values': [['mgmt', 'sea5r1', 'tuk5r1']], 'majorDimension': 'ROWS'}],
             #    'includeValuesInResponse': False,
             #    'valueInputOption': 'RAW'}
-            print "== Data: Updating values... %r" % [len(values) for datum in self.queue_values for values in datum.get('values',[])]
+            print("== Data: Updating values... %r" % [len(values) for datum in self.queue_values for values in datum.get('values',[])])
 
             data = {
                 'valueInputOption': 'RAW',
@@ -92,7 +92,7 @@ class Api(object):
             cur_interval = time.time() - self.last_action
             if cur_interval < min_interval:
                 delay = min_interval - cur_interval
-                print "== Throttle: %r" % delay
+                print("== Throttle: %r" % delay)
                 time.sleep(delay)
 
         self.last_action = time.time()

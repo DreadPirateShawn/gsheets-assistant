@@ -11,10 +11,12 @@ def cell_components(cell_name):
 
 def col_to_letters(col):
     letters = ''
+    if not col:
+        return letters
     while col > 0:
         mod = (col - 1) % 26
         letters = chr(ord('A') + mod) + letters
-        col = (col - mod - 1) / 26
+        col = (col - mod - 1) // 26
     return letters
 
 def letters_to_col(letters):
