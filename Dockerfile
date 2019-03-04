@@ -10,8 +10,8 @@ RUN apt-get update -qq \
 ENV WORKSPACE /gsheets-assistant
 WORKDIR $WORKSPACE
 ADD . $WORKSPACE
-#ENV PYTHONPATH $WORKSPACE:/usr/local/lib/python2.7/dist-packages:${PYTHONPATH}
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE true
 
 ENTRYPOINT ["/usr/bin/python3", "/gsheets-assistant/entrypoint.py"]
 CMD ["--help"]

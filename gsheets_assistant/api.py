@@ -47,7 +47,7 @@ class Api(object):
 
     def _flush_actions(self):
         if self.queue_actions:
-            print("== Execute: %s" % [action.keys()[0] for action in self.queue_actions])
+            print("== Execute: %s" % [list(action.keys())[0] for action in self.queue_actions])
 
             data = {'requests': self.queue_actions}
 
