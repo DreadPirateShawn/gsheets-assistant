@@ -1,5 +1,6 @@
 from gsheets_assistant.api import Api
 from gsheets_assistant.spreadsheet_tab import SpreadsheetTab
+from gsheets_assistant.utils import hex_to_rgb_hash
 
 
 class Spreadsheet(Api):
@@ -21,7 +22,7 @@ class Spreadsheet(Api):
     def tab_id(self, tab_name):
         return self.tabs_lookup.get(tab_name, {}).get('sheetId', None)
 
-    def add_tabs(self, tab_names, rows=100, cols=50):
+    def add_tabs(self, tab_names, rows=100, cols=50, color=None):
         for tab_name in tab_names:
             if tab_name in self.tabs_lookup:
                 print("== WARNING: Tab '%s' already exists ==" % tab_name)
@@ -34,11 +35,7 @@ class Spreadsheet(Api):
                         "rowCount": rows,
                         "columnCount": cols,
                     },
-                    "tabColor": {
-                        "red": 1.0,
-                        "green": 0.3,
-                        "blue": 0.4
-                    }
+                    "tabColor": hex_to_rgb_hash(color),
                 }
             })
 

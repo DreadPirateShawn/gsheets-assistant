@@ -1,7 +1,7 @@
 import unittest
 
 from gsheets_assistant.cell import Cell
-from gsheets_assistant.utils import get_range, grid_range
+from gsheets_assistant.utils import get_range, grid_range, hex_to_rgb_hash
 
 class TestUtils(unittest.TestCase):
 
@@ -78,5 +78,36 @@ class TestUtils(unittest.TestCase):
             'endColumnIndex': 2,
             'startRowIndex': 2,
             'endRowIndex': 4,
+        })
+
+    def test_hex_to_rgb_hash(self):
+        self.assertEqual(hex_to_rgb_hash(None), {
+            'red': 0.9,
+            'green': 0.9,
+            'blue': 0.9,
+        })
+
+        self.assertEqual(hex_to_rgb_hash("#FF0000"), {
+            'red': 1,
+            'green': 0,
+            'blue': 0,
+        })
+
+        self.assertEqual(hex_to_rgb_hash("#00FF00"), {
+            'red': 0,
+            'green': 1,
+            'blue': 0,
+        })
+
+        self.assertEqual(hex_to_rgb_hash("#0000FF"), {
+            'red': 0,
+            'green': 0,
+            'blue': 1,
+        })
+
+        self.assertEqual(hex_to_rgb_hash("#123456"), {
+            'red': 0.1,
+            'green': 0.2,
+            'blue': 0.3,
         })
 

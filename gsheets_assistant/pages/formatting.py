@@ -6,7 +6,7 @@ def demo_formatting(sheet):
 
     # Delete/recreate the tab
     sheet.delete_tabs([tab_name])
-    sheet.add_tabs([tab_name], rows=4, cols=3)
+    sheet.add_tabs([tab_name], rows=4, cols=3, color="#0000AA")
 
     # Get tab object
     tab = sheet.get_tab(tab_name)

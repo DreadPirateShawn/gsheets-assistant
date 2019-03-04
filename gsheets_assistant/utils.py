@@ -93,6 +93,9 @@ def grid_range(tab_id, range_name=None):
 
 def hex_to_rgb_hash(value):
     """Return (red, green, blue) for the color given as #rrggbb."""
+    if not value:
+        value = "#EFEFEF"
+
     value = value.lstrip('#')
 
     if len(value) != 6:
