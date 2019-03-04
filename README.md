@@ -38,7 +38,7 @@ docker run --rm --entrypoint=/bin/tar gsheets-assistant -c -C /gsheets-assistant
 
 ### Installing the tool
 ```
-pip install gsheets_assistant-$(cat VERSION)-py3-none-any.whl
+pip install gsheets_assistant-$(cat VERSION)-py3-none-any.whl --upgrade
 ```
 
 ### Running the tool

@@ -6,6 +6,8 @@ from gsheets_assistant.utils import get_range, grid_range
 class TestUtils(unittest.TestCase):
 
     def test_get_range(self):
+        self.assertEqual('A1:A1', get_range('A1', cols=1))
+
         self.assertEqual('A1:A1', get_range(Cell.at('A1'), cols=1))
         self.assertEqual('A1:B1', get_range(Cell.at('A1'), cols=2))
         self.assertEqual('A1:A2', get_range(Cell.at('A1'), rows=2))

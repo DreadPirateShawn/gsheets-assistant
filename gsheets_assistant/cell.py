@@ -48,11 +48,9 @@ class Cell(object):
             display += str(self.row)
         return display
 
-    def move_horiz(self, val):
-        self.col += val
-
-    def move_vert(self, val):
-        self.row += val
+    def move(self, cols=0, rows=0):
+        self.col += cols
+        self.row += rows
 
     @classmethod
     def at(cls, label):

@@ -1,32 +1,22 @@
 import argparse
 import httplib2
-import os
 
 from gsheets_assistant.credentials import Credentials
 from gsheets_assistant.spreadsheet import Spreadsheet
-from gsheets_assistant.cell import Cell
-from gsheets_assistant.utils import col_to_letters, get_range
-from gsheets_assistant.pages.sample import page_sample
+from gsheets_assistant.pages.data import demo_data
+from gsheets_assistant.pages.formatting import demo_formatting
+from gsheets_assistant.pages.movement import demo_movement
+from gsheets_assistant.pages.formula import demo_formula
 
 def main(secret_file=None, spreadsheet=None):
     # -- Get the relevant doc -- #
     creds = Credentials(secret_file).get()
     http = creds.authorize(httplib2.Http())
     sheet = Spreadsheet(http, spreadsheet)
-
-    # -- Spot-check functionality -- #
-    tab = sheet.get_tab('Sheet1')
-    values = tab.read('A1:B1')
-
-    if not values:
-        print('No data found.')
-    else:
-        print('== Sample data found: %r ==' % values)
-
-    sheet.delete_tabs( sheet.list_all_but_first_tab() )
-    sheet.add_tabs(["testing"], rows=50, cols=30)
-    tab = sheet.get_tab("testing")
-    page_sample(tab)
+    demo_data(sheet)
+    demo_formatting(sheet)
+    demo_movement(sheet)
+    demo_formula(sheet)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

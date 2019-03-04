@@ -47,19 +47,19 @@ class TestCell(unittest.TestCase):
         self.assertEqual(1, cell.col)
         self.assertEqual(2, cell.row)
 
-        cell.move_horiz(3)
+        cell.move(cols=3)
         self.assertEqual(4, cell.col)
         self.assertEqual(2, cell.row)
 
-        cell.move_horiz(-2)
+        cell.move(cols=-2)
         self.assertEqual(2, cell.col)
         self.assertEqual(2, cell.row)
 
-        cell.move_vert(3)
+        cell.move(rows=3)
         self.assertEqual(2, cell.col)
         self.assertEqual(5, cell.row)
 
-        cell.move_vert(-2)
+        cell.move(rows=-2)
         self.assertEqual(2, cell.col)
         self.assertEqual(3, cell.row)
 

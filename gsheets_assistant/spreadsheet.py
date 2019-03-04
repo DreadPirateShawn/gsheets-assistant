@@ -10,7 +10,6 @@ class Spreadsheet(Api):
         super(Spreadsheet, self).__init__(http, spreadsheet_id)
         self.check_tabs()
 
-
     def check_tabs(self):
         result = self.service.spreadsheets().get(spreadsheetId=self.spreadsheet_id).execute()
         tabs = result.get('sheets', [])
@@ -19,14 +18,8 @@ class Spreadsheet(Api):
         for tab in tabs:
             self.tabs_lookup[tab['properties']['title']] = tab['properties']
 
-
     def tab_id(self, tab_name):
         return self.tabs_lookup.get(tab_name, {}).get('sheetId', None)
-
-
-    def list_all_but_first_tab(self):
-        return [key for key,value in self.tabs_lookup.items() if value['sheetId']]
-
 
     def add_tabs(self, tab_names, rows=100, cols=50):
         for tab_name in tab_names:
@@ -52,7 +45,6 @@ class Spreadsheet(Api):
         self.flush()
         self.check_tabs()
 
-
     def delete_tabs(self, tab_names):
         for tab_name in tab_names:
             if tab_name not in self.tabs_lookup:
@@ -66,7 +58,6 @@ class Spreadsheet(Api):
         self.flush()
         self.check_tabs()
 
-
     def get_tab(self, tab_name):
         tab_id = self.tab_id(tab_name)
 
@@ -76,4 +67,7 @@ class Spreadsheet(Api):
             return None
 
         return SpreadsheetTab(self.http, self.spreadsheet_id, tab_name, tab_id)
+
+    def get_tabs(self):
+        return self.tabs_lookup.items()
 

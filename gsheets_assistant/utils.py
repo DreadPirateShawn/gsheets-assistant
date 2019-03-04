@@ -2,6 +2,9 @@ from gsheets_assistant.cell import Cell, col_to_letters, letters_to_col
 
 
 def get_range(cell, cols=1, rows=1):
+    if isinstance(cell, str):
+        cell = Cell.at(cell)
+
     col = cell.col
     row = cell.row
 
@@ -40,6 +43,9 @@ def get_range(cell, cols=1, rows=1):
 
 def grid_range(tab_id, range_name=None):
     """ https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets#GridRange """
+
+    if isinstance(range_name, Cell):
+        range_name = str(range_name)
 
     data = {
         'sheetId': tab_id,
